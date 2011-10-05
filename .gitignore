@@ -1,0 +1,13 @@
+obj
+bin
+_ReSharper.*
+*.csproj.user
+*.resharper.user
+*.ReSharper.user
+*.resharper
+*.suo
+*.cache
+*~
+*.swp
+*.testsettings
+TestResults
