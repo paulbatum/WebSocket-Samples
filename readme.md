@@ -2,7 +2,7 @@
 This repository is a collection of WebSocket samples for .NET 4.5
 
 #Getting Started
-To be able to compile and run you will need the [Windows 8 developer preview](http://msdn.microsoft.com/en-us/windows/apps/br229516). I covered the setup process in detail here: <http://www.paulbatum.com/2011/09/getting-started-with-websockets-in.html>
+To be able to compile and run you will need the [Windows 8 developer preview](http://msdn.microsoft.com/en-us/windows/apps/br229516). Detailed instructions on the setup process are [here](http://www.paulbatum.com/2011/09/getting-started-with-websockets-in.html).
 
 
 #Other Samples
