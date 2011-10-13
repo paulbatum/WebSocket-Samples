@@ -7,7 +7,7 @@ To be able to compile and run you will need the [Windows 8 developer preview](ht
 ##Included Samples
 
 ### ASP.NET WebSocket Echo
-The AspNetWebSocketEcho sample is a simple WebSocket echo server implemented using an IHttpHandler.
+The AspNetWebSocketEcho sample is a simple WebSocket echo server implemented using an IHttpHandler. Includes [annotated source](http://paulbatum.github.com/WebSocket-Samples/AspNetWebSocketEcho/).
 
 ##Other Samples
 If you are looking for the samples that Stefan and I demonstrated in our [BUILD 2011 talk](http://channel9.msdn.com/Events/BUILD/BUILD2011/SAC-807T), these have their own repositories:
