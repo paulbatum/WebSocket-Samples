@@ -1,6 +1,6 @@
 ﻿// This is an example of how to use the new low level WebSockets APIs introduced in ASP.NET 4.5.
 // In practice we expect that few developers will need to use these low level APIs and will instead use the 
-// [Micrsosoft.WebSockets](http://nuget.org/List/Packages/Microsoft.WebSockets) NuGet package.
+// [Microsoft.WebSockets](http://nuget.org/List/Packages/Microsoft.WebSockets) NuGet package.
 //
 // The function of this handler is simple. It receive text messages over the WebSocket connection, appends "You said "
 // to the front of the message and sends it back over the WebSocket connection.
