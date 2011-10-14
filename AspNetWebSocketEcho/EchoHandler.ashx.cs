@@ -9,6 +9,8 @@
 // to learn more visit the [async homepage](http://msdn.com/async) or read the [async articles](http://blogs.msdn.com/b/ericlippert/archive/tags/async) 
 // on Eric Lippert's blog.   
 //
+// The [source](https://github.com/paulbatum/WebSocket-Samples) for this sample is on GitHub.
+//
 // This HTML documentation was generated using [Nocco](http://dontangg.github.com/nocco/).
 
 //### Imports
