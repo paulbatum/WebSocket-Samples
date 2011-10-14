@@ -1,0 +1,1 @@
+copy .\docs\aspnetwebsocketecho\echohandler.ashx.html .\AspNetWebSocketEcho\index.html
