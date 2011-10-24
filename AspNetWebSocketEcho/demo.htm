@@ -9,7 +9,7 @@
             if (window.MozWebSocket) { window.WebSocket = window.MozWebSocket; }
 
             var uri = 'ws://' + window.location.hostname + window.location.pathname.replace('demo.htm', 'echohandler.ashx')
-            websocket = new WebSocket('ws://' + window.location.hostname + '/AspNetWebSocketEcho/echohandler.ashx');
+            websocket = new WebSocket(uri);
 
 
             websocket.onopen = function () {
