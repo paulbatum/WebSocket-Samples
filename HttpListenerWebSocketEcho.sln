@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 11
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "HttpListenerWebSocketEcho\Server\Server.csproj", "{6F08079E-C264-4B86-9545-A9384A7FEDFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "HttpListenerWebSocketEcho\Client\Client.csproj", "{ED2CC63F-C486-49CA-B9D8-C2BB7A054889}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F08079E-C264-4B86-9545-A9384A7FEDFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F08079E-C264-4B86-9545-A9384A7FEDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F08079E-C264-4B86-9545-A9384A7FEDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F08079E-C264-4B86-9545-A9384A7FEDFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED2CC63F-C486-49CA-B9D8-C2BB7A054889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED2CC63F-C486-49CA-B9D8-C2BB7A054889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED2CC63F-C486-49CA-B9D8-C2BB7A054889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED2CC63F-C486-49CA-B9D8-C2BB7A054889}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

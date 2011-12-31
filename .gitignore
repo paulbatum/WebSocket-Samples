@@ -12,3 +12,4 @@ _ReSharper.*
 *.testsettings
 TestResults
 packages/*
+*.zip
