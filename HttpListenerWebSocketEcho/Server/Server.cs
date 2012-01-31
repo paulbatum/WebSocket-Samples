@@ -76,20 +76,30 @@ namespace HttpListenerWebSocketEcho
         // performed by accessing the `System.Net.WebSocket` instance via the `WebSocketContext.WebSocket` property.        
         private async void ProcessRequest(HttpListenerContext listenerContext)
         {
-            WebSocket webSocket = null;
-
+            
+            WebSocketContext webSocketContext = null;
             try
             {                
                 // When calling `AcceptWebSocketAsync` the negotiated subprotocol must be specified. This sample assumes that no subprotocol 
                 // was requested. There is a small bug here in the developer preview where string.Empty is treated as "no subprotocol". Instead it would be correct to pass null
                 // and later versions of this sample will do so.
-                WebSocketContext webSocketContext = await listenerContext.AcceptWebSocketAsync(subProtocol: string.Empty);
-                                
+                webSocketContext = await listenerContext.AcceptWebSocketAsync(subProtocol: string.Empty);
                 Interlocked.Increment(ref count);
                 Console.WriteLine("Processed: {0}", count);
-                
-                webSocket = webSocketContext.WebSocket;
+            }
+            catch(Exception e)
+            {
+                // The upgrade process failed somehow. For simplicity lets assume it was a failure on the part of the server and indicate this using 500.
+                listenerContext.Response.StatusCode = 500;
+                listenerContext.Response.Close();
+                Console.WriteLine("Exception: {0}", e);
+                return;
+            }
+                                
+            WebSocket webSocket = webSocketContext.WebSocket;                                           
 
+            try
+            {
                 //### Receiving
                 // Define a receive buffer to hold data received on the WebSocket connection. The buffer will be reused as we only need to hold on to the data
                 // long enough to send it back to the sender.
