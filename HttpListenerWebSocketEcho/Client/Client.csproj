@@ -36,7 +36,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.WindowsRuntime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\System.Runtime.WindowsRuntime\v4.0_4.0.0.0__b77a5c561934e089\System.Runtime.WindowsRuntime.dll</HintPath>
+      <HintPath>c:\Windows\Microsoft.NET\assembly\GAC_MSIL\System.Runtime.WindowsRuntime\v4.0_4.0.0.0__b77a5c561934e089\System.Runtime.WindowsRuntime.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,13 +44,13 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Windows.Foundation">
-      <HintPath>..\..\..\..\Windows\System32\WinMetadata\Windows.Foundation.winmd</HintPath>
+      <HintPath>c:\Windows\System32\WinMetadata\Windows.Foundation.winmd</HintPath>
     </Reference>
     <Reference Include="Windows.Networking.Sockets">
-      <HintPath>..\..\..\..\Windows\System32\WinMetadata\Windows.Networking.Sockets.winmd</HintPath>
+      <HintPath>c:\Windows\System32\WinMetadata\Windows.Networking.Sockets.winmd</HintPath>
     </Reference>
     <Reference Include="Windows.Storage.Streams">
-      <HintPath>..\..\..\..\Windows\System32\WinMetadata\Windows.Storage.Streams.winmd</HintPath>
+      <HintPath>c:\Windows\System32\WinMetadata\Windows.Storage.Streams.winmd</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
