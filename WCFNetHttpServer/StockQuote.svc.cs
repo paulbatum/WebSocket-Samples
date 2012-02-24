@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace WCFNetHttpServer
             var random = new Random();
             double price = 29.00;
 
-            while (true)
+            while (((IChannel)callback).State == CommunicationState.Opened)
             {
                 await callback.SendQuote("MSFT", price);
                 price += random.NextDouble();

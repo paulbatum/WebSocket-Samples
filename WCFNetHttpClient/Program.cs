@@ -22,15 +22,9 @@ namespace WCFNetHttpClient
 
     public class QuoteHandler : StockQuoteCallback
     {
-
-        public void SendQuote(string code, double value)
-        {
-            Console.WriteLine("{0}: {1}", code, value);
-        }
-
         public async Task SendQuoteAsync(string code, double value)
         {
-            Console.WriteLine("{0}: {1} (async)", code, value);
+            Console.WriteLine("{0}: {1:f2}", code, value);
         }
     }
 }

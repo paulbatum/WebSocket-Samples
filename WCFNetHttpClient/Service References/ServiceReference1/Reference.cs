@@ -26,9 +26,6 @@ namespace WCFNetHttpClient.ServiceReference1 {
     public interface StockQuoteCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/StockQuote/SendQuote")]
-        void SendQuote(string code, double value);
-        
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/StockQuote/SendQuote")]
         System.Threading.Tasks.Task SendQuoteAsync(string code, double value);
     }
     
