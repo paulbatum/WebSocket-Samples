@@ -105,7 +105,7 @@ namespace AspNetWebSocketEcho
                         if (count >= maxMessageSize)
                         {                        
                             string closeMessage = string.Format("Maximum message size: {0} bytes.", maxMessageSize);
-                            await socket.CloseAsync(WebSocketCloseStatus.MessageTooLarge, closeMessage, CancellationToken.None);
+                            await socket.CloseAsync(WebSocketCloseStatus.MessageTooBig, closeMessage, CancellationToken.None);
                             return;
                         }
 

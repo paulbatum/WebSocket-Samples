@@ -46,7 +46,7 @@ namespace Client
             finally
             {
                 if (webSocket != null)
-                    webSocket.Close();
+                    webSocket.Close(1000, string.Empty);
                 Console.WriteLine();
                 Console.WriteLine("WebSocket closed.");
             }

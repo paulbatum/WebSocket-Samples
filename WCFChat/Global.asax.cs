@@ -6,18 +6,15 @@ using System.Web;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
-using Microsoft.ServiceModel.WebSockets;
 
-namespace WCFEcho
+namespace WCFChat
 {
     public class Global : System.Web.HttpApplication
     {
-
         protected void Application_Start(object sender, EventArgs e)
         {
-            RouteTable.Routes.Add(new ServiceRoute("echo", new WebSocketServiceHostFactory(), typeof(EchoService)));
+            RouteTable.Routes.Add(new ServiceRoute("chat", new WebSocketServiceHostFactory(), typeof(ChatService)));
         }
 
-       
     }
 }

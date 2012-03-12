@@ -1,0 +1,1 @@
+Unfortunately this sample was broken during the update from developer preview to Beta and I have been unable to figure out how to get the client .NET 4.5 console application to successfully reference and use WinRT.
