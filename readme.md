@@ -2,18 +2,15 @@
 This repository is a collection of WebSocket samples for .NET 4.5
 
 ##Getting Started
-To be able to compile and run you will need the [Windows 8 consumer preview](http://windows.microsoft.com/en-US/windows-8/consumer-preview). Detailed instructions on the setup process are [here](http://www.paulbatum.com/2011/09/getting-started-with-websockets-in.html).
+To be able to compile and run you will need the [Windows 8 release preview](http://windows.microsoft.com/en-US/windows-8/download). Detailed instructions on the setup process are [here](http://www.paulbatum.com/2011/09/getting-started-with-websockets-in.html).
 
 ##Included Samples
 
 ### ASP.NET WebSocket Echo
 The AspNetWebSocketEcho sample is a simple WebSocket echo server implemented using an IHttpHandler. Includes [annotated source](http://paulbatum.github.com/WebSocket-Samples/AspNetWebSocketEcho/).
 
-### HttpListener WebSocket Echo
-
-#### NOTE: The client project has been broken during the upgrade from developer preview to beta. I have been unable to get this working again - apologies for the inconvenience.
-
-The HttpListenerWebSocketEcho sample is another echo sample but this one is a binary streaming echo using WinRT as the client and HttpListener as the server.
+### HttpListener WebSocket + ClientWebSocket
+This sample is another echo sample but this one is a binary streaming echo using the ClientWebSocket type (new in Win8 Release Preview) as the client and HttpListener as the server.
 
 ### WCF Echo
 Yet another echo sample, this one is the WCF version of the AspNetWebSocketEcho.

@@ -7,17 +7,14 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Networking.Sockets;
-using Windows.Storage.Streams;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Client
 {
     class Client
     {
         private static object consoleLock = new object();
-        private const int sendChunkSize = 64;
-        private const int receiveChunkSize = 256;
+        private const int sendChunkSize = 256;
+        private const int receiveChunkSize = 64;
         private const bool verbose = true;
         private static readonly TimeSpan delay = TimeSpan.FromMilliseconds(1000);
 
@@ -31,12 +28,12 @@ namespace Client
 
         public static async Task Connect(string uri)
         {
-            StreamWebSocket webSocket = null;
+            ClientWebSocket webSocket = null;
 
             try
             {
-                webSocket = new StreamWebSocket();
-                await webSocket.ConnectAsync(new Uri(uri));                
+                webSocket = new ClientWebSocket();
+                await webSocket.ConnectAsync(new Uri(uri), CancellationToken.None);
                 await Task.WhenAll(Receive(webSocket), Send(webSocket));
             }
             catch (Exception ex)
@@ -46,48 +43,60 @@ namespace Client
             finally
             {
                 if (webSocket != null)
-                    webSocket.Close(1000, string.Empty);
+                    webSocket.Dispose();
                 Console.WriteLine();
-                Console.WriteLine("WebSocket closed.");
+
+                lock (consoleLock)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("WebSocket closed.");
+                    Console.ResetColor();
+                }
             }
         }
 
-        private static async Task Send(StreamWebSocket webSocket)
+        private static async Task Send(ClientWebSocket webSocket)
         {
             var random = new Random();
-            byte[] buffer = new byte[sendChunkSize];            
+            byte[] buffer = new byte[sendChunkSize];
 
-            while (true)
+            while (webSocket.State == WebSocketState.Open)
             {
                 random.NextBytes(buffer);
 
-                await webSocket.OutputStream.WriteAsync(buffer.AsBuffer());
-                LogStatus(false, buffer);
+                await webSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Binary, false, CancellationToken.None);
+                LogStatus(false, buffer, buffer.Length);
    
-                if(delay > TimeSpan.Zero)
-                    await Task.Delay(delay);
+                await Task.Delay(delay);
             }
         }
 
-        private static async Task Receive(StreamWebSocket webSocket)
+        private static async Task Receive(ClientWebSocket webSocket)
         {
             byte[] buffer = new byte[receiveChunkSize];
-            while (true)
+            while (webSocket.State == WebSocketState.Open)
             {                
-                await webSocket.InputStream.ReadAsync(buffer.AsBuffer(), (uint)buffer.Length, InputStreamOptions.None);                
-                LogStatus(true, buffer);
+                var result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                if (result.MessageType == WebSocketMessageType.Close)
+                {
+                    await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
+                }
+                else
+                {
+                    LogStatus(true, buffer, result.Count);
+                }
             }
         }
 
-        private static void LogStatus(bool receiving, byte[] buffer)
+        private static void LogStatus(bool receiving, byte[] buffer, int length)
         {
             lock (consoleLock)
             {
                 Console.ForegroundColor = receiving ? ConsoleColor.Green : ConsoleColor.Gray;
-                Console.WriteLine("{0} {1} bytes... ", receiving ? "Received" : "Sent", buffer.Length);
+                Console.WriteLine("{0} {1} bytes... ", receiving ? "Received" : "Sent", length);
 
                 if (verbose)
-                    Console.WriteLine(BitConverter.ToString(buffer));
+                    Console.WriteLine(BitConverter.ToString(buffer, 0, length));
 
                 Console.ResetColor();
             }

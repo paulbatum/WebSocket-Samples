@@ -5,15 +5,16 @@
     <title></title>
     <script src="Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(document).ready(function () {            
-            if (window.MozWebSocket) { window.WebSocket = window.MozWebSocket; }
+        $(document).ready(function () {
 
-            var uri = 'ws://' + window.location.hostname + window.location.pathname.replace('demo.htm', 'echohandler.ashx')
+            var username = prompt('Please enter a username:');
+            
+            var uri = 'ws://' + window.location.hostname + window.location.pathname.replace('default.htm', '') + 'chat.ashx?username=' + username;
+            console.log('Connecting to: ' + uri);
             websocket = new WebSocket(uri);
-
-
+            
             websocket.onopen = function () {
-                $('#messages').prepend('Connected.');
+                $('#messages').prepend('<div>Connected.</div>');
 
                 $('#chatform').submit(function (event) {
                     websocket.send($('#inputbox').val());
@@ -27,15 +28,15 @@
             };
 
             websocket.onclose = function () {
-                $('#messages').prepend('Closed.');
+                $('#messages').prepend('<div>Closed.</div>');
             };
 
             websocket.onerror = function (event) {
-                $('#messages').prepend('ERROR');
+                $('#messages').prepend('<div>ERROR</div>');
             };
 
             websocket.onmessage = function (event) {                
-                $('#messages').prepend('<div>' + event.data + '</div>');
+                $('#messages').prepend('<div>' + event.data + '</div>');                
             };
         });
     </script>

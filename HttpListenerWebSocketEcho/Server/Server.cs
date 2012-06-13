@@ -81,9 +81,8 @@ namespace HttpListenerWebSocketEcho
             try
             {                
                 // When calling `AcceptWebSocketAsync` the negotiated subprotocol must be specified. This sample assumes that no subprotocol 
-                // was requested. There is a small bug here in the developer preview where string.Empty is treated as "no subprotocol". Instead it would be correct to pass null
-                // and later versions of this sample will do so.
-                webSocketContext = await listenerContext.AcceptWebSocketAsync(subProtocol: string.Empty);
+                // was requested. 
+                webSocketContext = await listenerContext.AcceptWebSocketAsync(subProtocol: null);
                 Interlocked.Increment(ref count);
                 Console.WriteLine("Processed: {0}", count);
             }

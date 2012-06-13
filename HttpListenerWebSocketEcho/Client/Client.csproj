@@ -39,20 +39,6 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Runtime" />
-    <Reference Include="System.Runtime.WindowsRuntime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETCore\v4.5\System.Runtime.WindowsRuntime.dll</HintPath>
-    </Reference>
-    <Reference Include="Windows.Foundation">
-      <HintPath>..\..\..\..\Windows\System32\WinMetadata\Windows.Foundation.winmd</HintPath>
-    </Reference>
-    <Reference Include="Windows.Networking.Sockets">
-      <HintPath>..\..\..\..\Windows\System32\WinMetadata\Windows.Networking.Sockets.winmd</HintPath>
-    </Reference>
-    <Reference Include="Windows.Storage.Streams">
-      <HintPath>..\..\..\..\Windows\System32\WinMetadata\Windows.Storage.Streams.winmd</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="zhzgTRaFTrQPCfm8AtiT92UX+Wc=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="0KGf/Yjifu76qGQS4cusuxrjTc4=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="netHttpBinding" name="NetHttpBinding_StockQuote">
       <properties>
@@ -129,12 +129,6 @@
         <property path="/webSocketSettings/keepAliveInterval" isComplexType="false" isExplicitlyDefined="false" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>00:00:00</serializedValue>
         </property>
-        <property path="/webSocketSettings/receiveBufferSize" isComplexType="false" isExplicitlyDefined="false" clrType="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>32768</serializedValue>
-        </property>
-        <property path="/webSocketSettings/sendBufferSize" isComplexType="false" isExplicitlyDefined="false" clrType="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>8192</serializedValue>
-        </property>
         <property path="/webSocketSettings/disablePayloadMasking" isComplexType="false" isExplicitlyDefined="false" clrType="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>False</serializedValue>
         </property>
@@ -151,10 +145,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="NetHttpBinding_StockQuote" contract="ServiceReference1.StockQuote" bindingType="netHttpBinding" address="ws://pbatum-beta.redmond.corp.microsoft.com/WCFNetHttpServer/StockQuote.svc" bindingConfiguration="NetHttpBinding_StockQuote">
+    <endpoint name="NetHttpBinding_StockQuote" contract="ServiceReference1.StockQuote" bindingType="netHttpBinding" address="ws://localhost/WCFNetHttpServer/StockQuote.svc" bindingConfiguration="NetHttpBinding_StockQuote">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>ws://pbatum-beta.redmond.corp.microsoft.com/WCFNetHttpServer/StockQuote.svc</serializedValue>
+          <serializedValue>ws://localhost/WCFNetHttpServer/StockQuote.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

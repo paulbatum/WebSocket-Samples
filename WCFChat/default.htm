@@ -8,7 +8,7 @@
         $(document).ready(function () {            
             if (window.MozWebSocket) { window.WebSocket = window.MozWebSocket; }
             
-            var uri = 'ws://' + window.location.hostname + window.location.pathname.replace('demo.htm', 'chat')
+            var uri = 'ws://' + window.location.hostname + window.location.pathname.replace('default.htm', '') + 'chat';            
             websocket = new WebSocket(uri, 'chatprotocol');
 
             websocket.onopen = function () {

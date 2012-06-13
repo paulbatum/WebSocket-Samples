@@ -46,9 +46,9 @@
   </wsdl:binding>
   <wsdl:service name="StockQuote">
     <wsdl:port name="NetHttpBinding_StockQuote" binding="tns:NetHttpBinding_StockQuote">
-      <soap12:address location="ws://pbatum-beta.redmond.corp.microsoft.com/WCFNetHttpServer/StockQuote.svc" />
+      <soap12:address location="ws://localhost/WCFNetHttpServer/StockQuote.svc" />
       <wsa10:EndpointReference>
-        <wsa10:Address>ws://pbatum-beta.redmond.corp.microsoft.com/WCFNetHttpServer/StockQuote.svc</wsa10:Address>
+        <wsa10:Address>ws://localhost/WCFNetHttpServer/StockQuote.svc</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>
