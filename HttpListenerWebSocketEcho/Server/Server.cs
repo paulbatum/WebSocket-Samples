@@ -21,6 +21,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Net.WebSockets;
+using Microsoft.ServiceBus.Messaging;
 
 namespace HttpListenerWebSocketEcho
 {
@@ -40,7 +41,8 @@ namespace HttpListenerWebSocketEcho
 
     //## The Server class        
     class Server
-    {        
+    {
+        private EventHubClient client;
         private int count = 0;
 
         //### Starting the server        
@@ -49,6 +51,8 @@ namespace HttpListenerWebSocketEcho
         // If the request is for a WebSocket connection then pass it on to `ProcessRequest` - otherwise set the status code to 400 (bad request). 
         public async void Start(string listenerPrefix)
         {
+            // TODO: Put connection string in settings file.
+            client = EventHubClient.CreateFromConnectionString("Endpoint=sb://testsbwebsocket.servicebus.windows.net/;SharedAccessKeyName=Managed;SharedAccessKey=Wf6ALbH9pSc02IGmP7ThPKbosjM2lxSzFAWBX58sKqw=;EntityPath=testwebsocketreceiver");
             HttpListener listener = new HttpListener();
             listener.Prefixes.Add(listenerPrefix);
             listener.Start();
@@ -137,6 +141,7 @@ namespace HttpListenerWebSocketEcho
                     else if (receiveResult.MessageType == WebSocketMessageType.Text)
                     {
                         Console.WriteLine("Received message of MessageType Text. Closing connection...");
+                        var str = System.Text.Encoding.Default.GetString(receiveBuffer);
                         await webSocket.CloseAsync(WebSocketCloseStatus.InvalidMessageType, "Cannot accept text frame", CancellationToken.None);
                     }
                     // Otherwise we must have received binary data. Send it back by calling `SendAsync`. Note the use of the `EndOfMessage` flag on the receive result. This
