@@ -1,6 +1,7 @@
 obj
 bin
 _ReSharper.*
+.vs
 *.csproj.user
 *.resharper.user
 *.ReSharper.user
