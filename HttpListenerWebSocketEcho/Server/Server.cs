@@ -130,11 +130,13 @@ namespace HttpListenerWebSocketEcho
                     // If we are just responding to the client's request to close we can just use `WebSocketCloseStatus.NormalClosure` and omit the close message.
                     if (receiveResult.MessageType == WebSocketMessageType.Close)
                     {
+                        Console.WriteLine("Received message of MessageType Close. Closing connection...");
                         await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
                     }
                     // This echo server can't handle text frames so if we receive any we close the connection with an appropriate status code and message.
                     else if (receiveResult.MessageType == WebSocketMessageType.Text)
-                    {                    
+                    {
+                        Console.WriteLine("Received message of MessageType Text. Closing connection...");
                         await webSocket.CloseAsync(WebSocketCloseStatus.InvalidMessageType, "Cannot accept text frame", CancellationToken.None);
                     }
                     // Otherwise we must have received binary data. Send it back by calling `SendAsync`. Note the use of the `EndOfMessage` flag on the receive result. This

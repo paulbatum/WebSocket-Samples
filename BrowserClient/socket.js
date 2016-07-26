@@ -25,6 +25,7 @@ function appendMessage(msg) {
     received.appendChild(msgp);
 }
 
+
 function send() {
     // Get text from text box
     var text = document.getElementsByName('messageBox')[0].value;
