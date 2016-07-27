@@ -25,7 +25,6 @@ using Microsoft.ServiceBus.Messaging;
 
 namespace HttpListenerWebSocketEcho
 {
-    //## The program entry point    
     // Passes an HttpListener prefix for the server to listen on. The prefix 'http://+:80/wsDemo/' indicates that the server should listen on 
     // port 80 for requests to wsDemo (e.g. http://localhost/wsDemo). For more information on HttpListener prefixes see [MSDN](http://msdn.microsoft.com/en-us/library/system.net.httplistener.aspx).            
     class Program
@@ -39,26 +38,21 @@ namespace HttpListenerWebSocketEcho
         }
     }
 
-    //## The Server class        
     class Server
     {
         private EventHubClient client;
         private int count = 0;
 
-        //### Starting the server        
-        // Using HttpListener is reasonably straightforward. Start the listener and run a loop that receives and processes incoming WebSocket connections.
-        // Each iteration of the loop "asynchronously waits" for the next incoming request using the `GetContextAsync` extension method (defined below).             
-        // If the request is for a WebSocket connection then pass it on to `ProcessRequest` - otherwise set the status code to 400 (bad request). 
         public async void Start(string listenerPrefix)
         {
             // TODO: Put connection string in settings file.
             client = EventHubClient.CreateFromConnectionString("Endpoint=sb://testsbwebsocket.servicebus.windows.net/;SharedAccessKeyName=Managed;SharedAccessKey=Wf6ALbH9pSc02IGmP7ThPKbosjM2lxSzFAWBX58sKqw=;EntityPath=testwebsocketreceiver");
-            
+
             HttpListener listener = new HttpListener();
             listener.Prefixes.Add(listenerPrefix);
             listener.Start();
             Console.WriteLine("Listening...");
-           
+
             while (true)
             {
                 HttpListenerContext listenerContext = await listener.GetContextAsync();
@@ -74,24 +68,19 @@ namespace HttpListenerWebSocketEcho
             }
         }
 
-        //### Accepting WebSocket connections
-        // Calling `AcceptWebSocketAsync` on the `HttpListenerContext` will accept the WebSocket connection, sending the required 101 response to the client
-        // and return an instance of `WebSocketContext`. This class captures relevant information available at the time of the request and is a read-only 
-        // type - you cannot perform any actual IO operations such as sending or receiving using the `WebSocketContext`. These operations can be 
-        // performed by accessing the `System.Net.WebSocket` instance via the `WebSocketContext.WebSocket` property.        
         private async void ProcessRequest(HttpListenerContext listenerContext)
         {
-            
+
             WebSocketContext webSocketContext = null;
             try
-            {                
+            {
                 // When calling `AcceptWebSocketAsync` the negotiated subprotocol must be specified. This sample assumes that no subprotocol 
                 // was requested. 
                 webSocketContext = await listenerContext.AcceptWebSocketAsync(subProtocol: null);
                 Interlocked.Increment(ref count);
                 Console.WriteLine("Processed: {0}", count);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 // The upgrade process failed somehow. For simplicity lets assume it was a failure on the part of the server and indicate this using 500.
                 listenerContext.Response.StatusCode = 500;
@@ -99,68 +88,47 @@ namespace HttpListenerWebSocketEcho
                 Console.WriteLine("Exception: {0}", e);
                 return;
             }
-                                
-            WebSocket webSocket = webSocketContext.WebSocket;                                           
+
+            WebSocket webSocket = webSocketContext.WebSocket;
 
             try
             {
                 //### Receiving
-                // Define a receive buffer to hold data received on the WebSocket connection. The buffer will be reused as we only need to hold on to the data
-                // long enough to send it back to the sender.
+                // Define a receive buffer to hold data received on the WebSocket connection. The buffer will be reused.
                 byte[] receiveBuffer = new byte[1024];
 
-                // While the WebSocket connection remains open run a simple loop that receives data and sends it back.
                 while (webSocket.State == WebSocketState.Open)
                 {
                     // The first step is to begin a receive operation on the WebSocket. `ReceiveAsync` takes two parameters:
-                    //
-                    // * An `ArraySegment` to write the received data to. 
-                    // * A cancellation token. In this example we are not using any timeouts so we use `CancellationToken.None`.
-                    //
-                    // `ReceiveAsync` returns a `Task<WebSocketReceiveResult>`. The `WebSocketReceiveResult` provides information on the receive operation that was just 
-                    // completed, such as:                
-                    //
-                    // * `WebSocketReceiveResult.MessageType` - What type of data was received and written to the provided buffer. Was it binary, utf8, or a close message?                
-                    // * `WebSocketReceiveResult.Count` - How many bytes were read?                
-                    // * `WebSocketReceiveResult.EndOfMessage` - Have we finished reading the data for this message or is there more coming?
                     WebSocketReceiveResult receiveResult = await webSocket.ReceiveAsync(new ArraySegment<byte>(receiveBuffer), CancellationToken.None);
 
-                    // The WebSocket protocol defines a close handshake that allows a party to send a close frame when they wish to gracefully shut down the connection.
-                    // The party on the other end can complete the close handshake by sending back a close frame.
-                    //
-                    // If we received a close frame then lets participate in the handshake by sending a close frame back. This is achieved by calling `CloseAsync`. 
-                    // `CloseAsync` will also terminate the underlying TCP connection once the close handshake is complete.
-                    //
-                    // The WebSocket protocol defines different status codes that can be sent as part of a close frame and also allows a close message to be sent. 
-                    // If we are just responding to the client's request to close we can just use `WebSocketCloseStatus.NormalClosure` and omit the close message.
                     if (receiveResult.MessageType == WebSocketMessageType.Close)
                     {
                         Console.WriteLine("Received message of MessageType Close. Closing connection...");
                         await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
                     }
-                    // This echo server can't handle text frames so if we receive any we close the connection with an appropriate status code and message.
                     else if (receiveResult.MessageType == WebSocketMessageType.Text)
                     {
                         var str = Encoding.Default.GetString(receiveBuffer, 0, receiveResult.Count);
                         client.Send(new EventData(Encoding.UTF8.GetBytes(str)));
                     }
-                    // Otherwise we must have received binary data. Send it back by calling `SendAsync`. Note the use of the `EndOfMessage` flag on the receive result. This
-                    // means that if this echo server is sent one continuous stream of binary data (with EndOfMessage always false) it will just stream back the same thing.
-                    // If binary messages are received then the same binary messages are sent back.
                     else
-                    {                        
+                    {
                         await webSocket.SendAsync(new ArraySegment<byte>(receiveBuffer, 0, receiveResult.Count), WebSocketMessageType.Binary, receiveResult.EndOfMessage, CancellationToken.None);
                         var str = Encoding.Default.GetString(receiveBuffer, 0, receiveResult.Count);
-                        
                         client.Send(new EventData(Encoding.UTF8.GetBytes(str)));
                     }
 
-                    // The echo operation is complete. The loop will resume and `ReceiveAsync` is called again to wait for the next data frame.
+                    // Forwarding to event hub operation complete.
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                // Just log any exceptions to the console. Pretty much any exception that occurs when calling `SendAsync`/`ReceiveAsync`/`CloseAsync` is unrecoverable in that it will abort the connection and leave the `WebSocket` instance in an unusable state.
+                // Just log any exceptions to the console. Pretty much any 
+                // exception that occurs when calling 
+                // `SendAsync`/`ReceiveAsync`/`CloseAsync` is unrecoverable 
+                // in that it will abort the connection and leave the 
+                // `WebSocket` instance in an unusable state.
                 Console.WriteLine("Exception: {0}", e);
             }
             finally
@@ -175,7 +143,7 @@ namespace HttpListenerWebSocketEcho
     // This extension method wraps the BeginGetContext / EndGetContext methods on HttpListener as a Task, using a helper function from the Task Parallel Library (TPL).
     // This makes it easy to use HttpListener with the C# 5 asynchrony features.
     public static class HelperExtensions
-    {        
+    {
         public static Task GetContextAsync(this HttpListener listener)
         {
             return Task.Factory.FromAsync<HttpListenerContext>(listener.BeginGetContext, listener.EndGetContext, TaskCreationOptions.None);
