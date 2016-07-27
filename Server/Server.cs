@@ -152,6 +152,7 @@ namespace HttpListenerWebSocketEcho
                     {                        
                         await webSocket.SendAsync(new ArraySegment<byte>(receiveBuffer, 0, receiveResult.Count), WebSocketMessageType.Binary, receiveResult.EndOfMessage, CancellationToken.None);
                         var str = Encoding.Default.GetString(receiveBuffer, 0, receiveResult.Count);
+                        
                         client.Send(new EventData(Encoding.UTF8.GetBytes(str)));
                     }
 

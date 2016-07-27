@@ -62,9 +62,8 @@ namespace Client
 
             while (webSocket.State == WebSocketState.Open)
             {
-                random.NextBytes(buffer);
-
-                await webSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Binary, false, CancellationToken.None);
+                //random.NextBytes(buffer);
+                await webSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes("Hello, this is the web socket client.")), WebSocketMessageType.Binary, false, CancellationToken.None);
                 LogStatus(false, buffer, buffer.Length);
    
                 await Task.Delay(delay);

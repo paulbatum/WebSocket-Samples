@@ -3,12 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{ED2CC63F-C486-49CA-B9D8-C2BB7A054889}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{6F08079E-C264-4B86-9545-A9384A7FEDFF}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "HttpListenerWebSocketEcho\Client\Client.csproj", "{ED2CC63F-C486-49CA-B9D8-C2BB7A054889}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "HttpListenerWebSocketEcho\Server\Server.csproj", "{6F08079E-C264-4B86-9545-A9384A7FEDFF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HttpListenerWithClientWebSocket", "HttpListenerWithClientWebSocket", "{04A51BF5-ECAB-49CB-B2A3-B99D3BEF0661}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
