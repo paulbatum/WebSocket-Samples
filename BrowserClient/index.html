@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Websocket test</title>
+</head>
+
+<body>
+    <script type="text/javascript" src="socket.js"></script>
+    <script type="text/javascript">
+        var url = "ws://localhost:1/";
+
+        window.onload = function() {
+            document.getElementsByName('urlBox')[0].value = "ws://localhost/wsDemo";
+        }
+    </script>
+    <h1>Web sockets</h1>
+    <p>
+        <textarea name="urlBox" cols="30" rows="1"></textarea>
+        <button onclick="connect(document.getElementsByName('urlBox')[0].value);">Connect</button>
+        <br>
+        <textarea name="messageBox" id="" cols="30" rows="1"></textarea>
+        <button onclick="send();">Send</button>
+        <h2>Received</h2>
+        <p id="messagesReceived"></p>
+    </p>
+
+
+</body>
+
+</html>
