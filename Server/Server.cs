@@ -22,7 +22,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Net.WebSockets;
 using Microsoft.ServiceBus.Messaging;
-using Server;
 
 namespace HttpListenerWebSocketEcho
 {
